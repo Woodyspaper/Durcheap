@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Sign-in Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Sign-in Test</h1>
+    <p>This page tests various mobile sign-in scenarios to identify 404 issues.</p>
+    
+    <div class="test-section">
+        <h3>Navigation Tests</h3>
+        <button onclick="testRoute('/auth')">Test /auth route</button>
+        <button onclick="testRoute('/signin')">Test /signin route</button>
+        <button onclick="testRoute('/login')">Test /login route</button>
+        <button onclick="testRoute('/sign-in')">Test /sign-in route</button>
+        <button onclick="testRoute('/register')">Test /register route</button>
+        <div id="nav-results" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>API Tests</h3>
+        <button onclick="testAPI('/api/auth/user')">Test Auth Status</button>
+        <button onclick="testAPI('/api/categories')">Test Categories API</button>
+        <button onclick="testLogin()">Test Login API</button>
+        <div id="api-results" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Mobile Navigation</h3>
+        <button onclick="testMobileMenu()">Test Mobile Menu Navigation</button>
+        <button onclick="testMobileSignIn()">Test Mobile Sign-In Flow</button>
+        <div id="mobile-results" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function showResult(containerId, message, isError = false) {
+            const container = document.getElementById(containerId);
+            container.style.display = 'block';
+            container.className = `result ${isError ? 'error' : 'success'}`;
+            container.innerHTML = message;
+        }
+
+        async function testRoute(path) {
+            try {
+                const response = await fetch(path);
+                const isOk = response.status === 200;
+                showResult('nav-results', 
+                    `${path}: ${response.status} ${response.statusText}${isOk ? ' ✓' : ' ✗'}`,
+                    !isOk
+                );
+            } catch (error) {
+                showResult('nav-results', `${path}: Error - ${error.message}`, true);
+            }
+        }
+
+        async function testAPI(endpoint) {
+            try {
+                const response = await fetch(endpoint, {
+                    credentials: 'include'
+                });
+                const text = await response.text();
+                const isOk = response.status < 400;
+                showResult('api-results', 
+                    `${endpoint}: ${response.status} ${response.statusText}<br>Response: ${text.substring(0, 100)}...`,
+                    !isOk
+                );
+            } catch (error) {
+                showResult('api-results', `${endpoint}: Error - ${error.message}`, true);
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        email: 'mobile@test.com',
+                        password: 'test123'
+                    })
+                });
+                const text = await response.text();
+                const isOk = response.status === 200;
+                showResult('api-results', 
+                    `Login API: ${response.status} ${response.statusText}<br>Response: ${text.substring(0, 200)}...`,
+                    !isOk
+                );
+            } catch (error) {
+                showResult('api-results', `Login API: Error - ${error.message}`, true);
+            }
+        }
+
+        function testMobileMenu() {
+            // Simulate mobile menu click
+            const mobileUA = navigator.userAgent.includes('Mobile');
+            const touchSupport = 'ontouchstart' in window;
+            showResult('mobile-results', 
+                `Mobile UA: ${mobileUA ? 'Yes' : 'No'}<br>Touch Support: ${touchSupport ? 'Yes' : 'No'}<br>Screen Width: ${window.innerWidth}px`,
+                false
+            );
+        }
+
+        function testMobileSignIn() {
+            // Test the sign-in flow that might cause 404
+            const steps = [
+                '1. Navigate to /auth',
+                '2. Fill sign-in form',
+                '3. Submit login request',
+                '4. Redirect to home'
+            ];
+            showResult('mobile-results', 
+                `Mobile Sign-In Flow:<br>${steps.join('<br>')}<br><br>Click "Test /auth route" above to verify the auth page loads correctly.`,
+                false
+            );
+        }
+
+        // Auto-detect and show mobile info
+        window.onload = function() {
+            if (window.innerWidth <= 768) {
+                document.body.style.backgroundColor = '#f0f8ff';
+            }
+        };
+    </script>
+</body>
+</html>

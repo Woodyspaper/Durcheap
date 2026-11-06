@@ -1,0 +1,20 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "S3P1wJP7DM25-KFxKpadv"
+uri = "file://frontend_export.tar.gz"
+type = "unspecified"
+title = "Durcheap Frontend Export"
+
+[[outputs]]
+id = "AmVaBNcB7trnaD3IgzHYj"
+uri = "file://durcheap_frontend.zip"
+type = "unspecified"
+title = "Durcheap Frontend (ZIP)"
+
+[[outputs]]
+id = "y6K4Jcs6TAX1OQftemINp"
+uri = "file://converter_components.zip"
+type = "unspecified"
+title = "Currency & Crypto Converter Components"

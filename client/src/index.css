@@ -1,0 +1,360 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+
+  /* Amazon-inspired custom colors */
+  --amazon-orange: hsl(34, 100%, 50%);
+  --amazon-dark: hsl(203, 39%, 20%);
+  --amazon-blue: hsl(203, 25%, 35%);
+  --amazon-light: hsl(60, 20%, 95%);
+  --amazon-success: hsl(151, 83%, 26%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+
+  /* Amazon-inspired dark mode colors */
+  --amazon-orange: hsl(34, 100%, 45%);
+  --amazon-dark: hsl(203, 50%, 12%);
+  --amazon-blue: hsl(203, 40%, 25%);
+  --amazon-light: hsl(240, 3.7%, 15.9%);
+  --amazon-success: hsl(151, 70%, 30%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Amazon-inspired utility classes */
+  .amazon-orange {
+    background-color: var(--amazon-orange);
+    color: var(--amazon-dark);
+  }
+
+  .amazon-dark {
+    background-color: var(--amazon-dark);
+    color: white;
+  }
+
+  .amazon-blue {
+    background-color: var(--amazon-blue);
+    color: white;
+  }
+
+  .text-amazon-orange {
+    color: var(--amazon-orange);
+  }
+
+  .text-amazon-dark {
+    color: var(--amazon-dark);
+  }
+
+  .text-amazon-blue {
+    color: var(--amazon-blue);
+  }
+
+  .bg-amazon-orange {
+    background-color: var(--amazon-orange);
+  }
+
+  .bg-amazon-dark {
+    background-color: var(--amazon-dark);
+  }
+
+  .bg-amazon-blue {
+    background-color: var(--amazon-blue);
+  }
+
+  .bg-amazon-light {
+    background-color: var(--amazon-light);
+  }
+
+  .border-amazon-orange {
+    border-color: var(--amazon-orange);
+  }
+
+  .border-amazon-dark {
+    border-color: var(--amazon-dark);
+  }
+
+  /* Mobile-first responsive utilities */
+  .mobile-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .mobile-text {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .mobile-heading {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .mobile-hero-heading {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+  }
+
+  /* Touch-friendly button sizes */
+  .mobile-button {
+    @apply min-h-[44px] px-4 py-2 sm:px-6 sm:py-3;
+  }
+
+  /* Responsive grid utilities */
+  .mobile-grid-1 {
+    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+
+  .mobile-grid-2 {
+    @apply grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6;
+  }
+
+  .mobile-grid-3 {
+    @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-3;
+  }
+
+  /* Card responsive spacing */
+  .mobile-card {
+    @apply p-3 sm:p-4 lg:p-6;
+  }
+
+  /* Navigation responsive styles */
+  .mobile-nav {
+    @apply flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4;
+  }
+  
+  /* Image responsive styles */
+  .mobile-image {
+    @apply w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover;
+  }
+
+  /* Form responsive styles */
+  .mobile-form {
+    @apply space-y-4 sm:space-y-6;
+  }
+
+  .mobile-form-grid {
+    @apply grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
+  }
+
+  /* Tablet-specific breakpoint utilities */
+  @screen md {
+    .tablet-hidden {
+      @apply hidden;
+    }
+    
+    .tablet-flex {
+      @apply flex;
+    }
+    
+    .tablet-grid-3 {
+      @apply grid-cols-3;
+    }
+  }
+
+  /* Scrollbar hide utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth scrolling for carousels */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Phone-specific utilities */
+  @media (max-width: 640px) {
+    .phone-hidden {
+      display: none;
+    }
+    
+    .phone-full-width {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+    }
+    
+    .phone-text-center {
+      text-align: center;
+    }
+    
+    .phone-stack {
+      flex-direction: column;
+    }
+  }
+
+  /* Touch target improvements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Scrollable containers */
+  .mobile-scroll {
+    @apply overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100;
+  }
+
+  .border-amazon-blue {
+    border-color: var(--amazon-blue);
+  }
+
+  /* Hover states */
+  .hover\:bg-amazon-orange:hover {
+    background-color: var(--amazon-orange);
+  }
+
+  .hover\:text-amazon-orange:hover {
+    color: var(--amazon-orange);
+  }
+
+  .hover\:border-amazon-orange:hover {
+    border-color: var(--amazon-orange);
+  }
+
+  /* Focus states */
+  .focus\:ring-amazon-orange:focus {
+    --tw-ring-color: var(--amazon-orange);
+  }
+
+  .focus\:border-amazon-orange:focus {
+    border-color: var(--amazon-orange);
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+@layer utilities {
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Animation improvements */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Product card hover effects */
+.product-card-hover {
+  transition: all 0.3s ease;
+}
+
+.product-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Button focus improvements */
+.btn-focus {
+  transition: all 0.2s ease;
+}
+
+.btn-focus:focus {
+  outline: 2px solid var(--amazon-orange);
+  outline-offset: 2px;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(255, 153, 0, 0.1);
+  border-top: 3px solid var(--amazon-orange);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
